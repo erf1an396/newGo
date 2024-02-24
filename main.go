@@ -296,7 +296,7 @@ func writeUserToFile(user User) {
 	defer func() {
 		cErr := file.Close()
 		if cErr != nil {
-			fmt.Println("can't close the file", err)
+			fmt.Println("can't close the file", cErr)
 		}
 	}()
 
