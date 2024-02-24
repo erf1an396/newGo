@@ -114,7 +114,7 @@ func createTask() {
 
 	categoryID, err := strconv.Atoi(category)
 	if err != nil {
-		fmt.Println("category-id is not valid for integer, %v\n", err)
+		fmt.Printf("category-id is not valid for integer, %v\n", err)
 
 		return
 	}
@@ -293,7 +293,12 @@ func writeUserToFile(user User) {
 		return
 	}
 
-	defer file.Close()
+	defer func() {
+		cErr := file.Close()
+		if cErr != nil {
+			fmt.Println("can't close the file", err)
+		}
+	}()
 
 	var data []byte
 
@@ -318,7 +323,7 @@ func writeUserToFile(user User) {
 
 	numberOfWrittenBytes, wErr := file.Write(data)
 	if wErr != nil {
-		fmt.Println("can't write to the file %v\n", wErr)
+		fmt.Printf("can't write to the file %v\n", wErr)
 
 		return
 	}
