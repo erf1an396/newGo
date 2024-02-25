@@ -234,20 +234,38 @@ func listTask() {
 }
 
 func loadUserStorageFromFile(serializationMode string) {
-	file, err := os.Open(userStoragePath)
+
+	//solution one
+	//file, err := os.Open(userStoragePath)
+	//if err != nil {
+	//	fmt.Println("can't open the file", err)
+	//}
+	//
+	//var finalData []byte
+	//for {
+	//	var data = make([]byte, 1024)
+	//	numberOfReadData, oErr := file.Read(data)
+	//	if oErr != nil {
+	//		fmt.Println("can't read file", oErr)
+	//		return
+	//	}
+	//
+	//	finalData = append(finalData, data[:numberOfReadData]...)
+	//
+	//	if oErr == io.EOF {
+	//		fmt.Println("the file is completely read", oErr)
+	//		break
+	//	}
+	//}
+
+	// solution two
+
+	finalData, err := os.ReadFile(userStoragePath)
 	if err != nil {
-		fmt.Println("can't open the file", err)
+		fmt.Println("can't read the file", err)
 	}
 
-	var data = make([]byte, 1024)
-	_, rErr := file.Read(data)
-	if rErr != nil {
-		fmt.Println("can't read from the file", rErr)
-
-		return
-	}
-
-	var dataStr = string(data)
+	var dataStr = string(finalData)
 
 	userSlice := strings.Split(dataStr, "\n")
 
